@@ -1,0 +1,31 @@
+<?php
+require("class.phpmailer.php");
+session_start();
+require_once('Connections/tienda.php'); 
+     mysql_select_db($database_tienda) or die ("No se encuentra la base de datos especificada");
+        
+$login = $_POST['login'];
+$password = $_POST['password'];
+
+$consulta = "update usuario set password='".$password."' where login='".$login."'";
+mysql_query($consulta) or die(mysql_error());
+echo"<script>alert('El password fue modificado con exito')</script>"; 
+$valido = true;
+ $consulta2 = "SELECT * FROM usuario where login='".$login."' AND password='".$password."'";
+         $result = mysql_query($consulta2) or die (mysql_error());
+         $filasn = mysql_num_rows($result);
+         if ($filasn<=0 || isset($_GET['nologin']) ){
+             
+             $valido = false;
+         }else{
+        $rowsresult = mysql_fetch_array($result);          
+        $_SESSION['cve_usu'] = $rowsresult['cve_usu'];
+             $valido = true;
+             //guardamos en sesion el carnet del usuario ya que ese es el identificados en la base de datos
+             $_SESSION["user"] = $logusu;
+             header("location:indexadmin.php");
+				echo '<script type=\"text/javascript\">alert(\"Gracias Por Registrarse\");</script>';
+
+         }
+
+?>

@@ -1,0 +1,233 @@
+﻿-- MySQL dump 10.13  Distrib 5.6.26, for Win32 (x86)
+--
+-- Host: localhost    Database: tienda
+-- ------------------------------------------------------
+-- Server version	5.7.17-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `categoria`
+--
+
+DROP TABLE IF EXISTS `categoria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `categoria` (
+  `cve_cat` int(11) NOT NULL AUTO_INCREMENT,
+  `categoria_cat` varchar(50) NOT NULL,
+  PRIMARY KEY (`cve_cat`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categoria`
+--
+
+LOCK TABLES `categoria` WRITE;
+/*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
+INSERT INTO `categoria` VALUES (1,'bolsa'),(2,'pulsera'),(3,'rosas de papel');
+/*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `color`
+--
+
+DROP TABLE IF EXISTS `color`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `color` (
+  `cve_colo` int(11) NOT NULL AUTO_INCREMENT,
+  `color_colo` varchar(50) NOT NULL,
+  PRIMARY KEY (`cve_colo`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `color`
+--
+
+LOCK TABLES `color` WRITE;
+/*!40000 ALTER TABLE `color` DISABLE KEYS */;
+INSERT INTO `color` VALUES (1,'rojo'),(2,'azul turqueza'),(3,'rosa'),(4,'verde'),(5,'naranja'),(6,'cafe'),(7,'azul'),(8,'morado-rosa'),(9,'blanco-azul-verde'),(10,'dorado-negro'),(11,'blanco-negro'),(12,'blanco-azul'),(13,'azul-rojo');
+/*!40000 ALTER TABLE `color` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `producto`
+--
+
+DROP TABLE IF EXISTS `producto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `producto` (
+  `cve_pro` int(11) NOT NULL AUTO_INCREMENT,
+  `nom_pro` varchar(50) NOT NULL,
+  `precio_pro` float(8,2) NOT NULL,
+  `cant_pro` int(11) DEFAULT NULL,
+  `imagen_pro` varchar(60) DEFAULT NULL,
+  `descripcion_pro` varchar(250) DEFAULT NULL,
+  `cve_cat` int(11) NOT NULL,
+  `cve_colo` int(11) NOT NULL,
+  PRIMARY KEY (`cve_pro`),
+  KEY `cve_cat` (`cve_cat`),
+  KEY `cve_colo` (`cve_colo`),
+  CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`cve_cat`) REFERENCES `categoria` (`cve_cat`) ON UPDATE CASCADE,
+  CONSTRAINT `producto_ibfk_2` FOREIGN KEY (`cve_colo`) REFERENCES `color` (`cve_colo`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `producto`
+--
+
+LOCK TABLES `producto` WRITE;
+/*!40000 ALTER TABLE `producto` DISABLE KEYS */;
+INSERT INTO `producto` VALUES (1,'flor de 5 petalos',40.00,10,'rosa5petalos.jpg','tamaño 20cm, Hechas con hojas  pero con una diferencia, solo utiliza las manos. Es decir, no usa ni tijeras, ni pegamento, ni ningún utensilio propio de la papiroflexia.',3,2),(2,'bolso casual artesanal',360.00,10,'bolsa.jpg','Preciosas bolsas tejidas de manera artesanal, hechas a mano, de plástico muy resistente y con asas extra largas. Material principal: Plástico, Altura: 26 cm, Ancho: 35 cm, Profundidad: 13 cm.\r\n',1,8),(3,'canasta elegante artesanal',500.00,10,'bolsa1.png','la puedes usar en la ciudad, en la playa, en el campo, bolsa de mano, etc. Plástico muy resistente de alta calidad, Fácil de limpiar, Broches de imán, Placa metálica, broche principal de cierre. Material principal: CINTA PLASTICA,Altura: 30 cm, Ancho',1,13),(4,'lonchera artesanal',300.00,10,'bolsa2.png','Bolsa tipo lonchera, la puedes usar en la ciudad, en la playa, en el campo, usala como lonchera, bolsa de mano. Material principal: PLASTICO DE ALTA CALIDAD, Altura: 20 cm, Ancho: 30 cm, Profundidad: 13 cm\r\n',1,9),(5,'lonchera artesanal grande',300.00,10,'bolsa3.png','Bolsa tipo lonchera, la puedes usar en la ciudad, en la playa, en el campo, úsala como lonchera, bolsa de mano, etc.',1,10),(6,'canasta artesanal',350.00,10,'bolsa4.png','La puedes usar en la ciudad, en la playa, en el campo, bolsa de mano, etc. Plástico muy resistente de alta calidad, Fácil de limpiar, Broches de imán, Placa metálica, elegante motita, Material principal: PLASTICO DE ALTA CALIDAD, Altura: 33 cm, Ancho',1,11),(7,'lonchera artesanal pequeña',250.00,10,'bolsa5.png','Material principal: PLASTICO DE ALTA CALIDAD, Altura: 33 cm, Ancho: 35 cm, Profundidad: 13 cm, Material principal: plástico de alta calidad, Altura: 15 cm, Ancho: 15 cm, Profundidad: 15 cm.',1,12),(8,'pulsera tejida pareja-amistad',15.00,10,'pulsera2.png','TEJIDA CON HILO GRUESO DE CADENA  Y DIJE  DE FANTASIA. ',2,3),(9,'pulsera tejida pareja-amistad',15.00,10,'pulsera1.png','TEJIDA CON HILO GRUESO DE CADENA  Y DIJE  DE FANTASIA.',2,7),(10,'flores de pompones',50.00,10,'floresp.jpg','Son hecha de papel china o crepe, Tamaño: 20 cm',3,3),(11,'rosa grande',80.00,10,'flor1..png',' Son hechas  de hojas son 100% hechas  a mano  PARA REGALAR EN UN DIA ESPECIAL tamaño: 30 cm.',3,3),(12,'rosa mediana',25.00,10,'flor.png',' Son hechas  de hojas son 100% hechas  a mano  PARA REGALAR EN UN DIA ESPECIAL.  tamaño: 15 cm.',3,4);
+/*!40000 ALTER TABLE `producto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `renglonventa`
+--
+
+DROP TABLE IF EXISTS `renglonventa`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `renglonventa` (
+  `cve_renven` int(11) NOT NULL AUTO_INCREMENT,
+  `cant_renven` int(11) NOT NULL,
+  `subtotal_renven` float(8,2) DEFAULT NULL,
+  `folio_ven` int(11) NOT NULL,
+  `cve_pro` int(11) NOT NULL,
+  PRIMARY KEY (`cve_renven`),
+  KEY `folio_ven` (`folio_ven`),
+  KEY `cve_pro` (`cve_pro`),
+  CONSTRAINT `renglonventa_ibfk_1` FOREIGN KEY (`folio_ven`) REFERENCES `venta` (`folio_ven`) ON UPDATE CASCADE,
+  CONSTRAINT `renglonventa_ibfk_2` FOREIGN KEY (`cve_pro`) REFERENCES `producto` (`cve_pro`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `renglonventa`
+--
+
+LOCK TABLES `renglonventa` WRITE;
+/*!40000 ALTER TABLE `renglonventa` DISABLE KEYS */;
+/*!40000 ALTER TABLE `renglonventa` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `resurtir`
+--
+
+DROP TABLE IF EXISTS `resurtir`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `resurtir` (
+  `cve_res` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha_res` date NOT NULL,
+  `cant_res` int(11) NOT NULL,
+  `cve_pro` int(11) NOT NULL,
+  PRIMARY KEY (`cve_res`),
+  KEY `cve_pro` (`cve_pro`),
+  CONSTRAINT `resurtir_ibfk_1` FOREIGN KEY (`cve_pro`) REFERENCES `producto` (`cve_pro`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `resurtir`
+--
+
+LOCK TABLES `resurtir` WRITE;
+/*!40000 ALTER TABLE `resurtir` DISABLE KEYS */;
+/*!40000 ALTER TABLE `resurtir` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usuario`
+--
+
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usuario` (
+  `cve_usu` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha_usu` date NOT NULL,
+  `login` varchar(25) NOT NULL,
+  `password` varchar(25) NOT NULL,
+  `appat_usu` varchar(60) NOT NULL,
+  `apmat_usu` varchar(60) NOT NULL,
+  `nom_usu` varchar(50) NOT NULL,
+  `fnac_usu` date NOT NULL,
+  `telefono` varchar(20) NOT NULL,
+  `correo` varchar(30) NOT NULL,
+  `calle` varchar(30) NOT NULL,
+  `numero` int(11) NOT NULL,
+  `orientacion` varchar(25) NOT NULL,
+  `cp` int(11) NOT NULL,
+  `ciudad` varchar(50) NOT NULL,
+  `colonia` varchar(50) NOT NULL,
+  `estado` varchar(50) NOT NULL,
+  `pais` varchar(50) NOT NULL,
+  PRIMARY KEY (`cve_usu`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuario`
+--
+
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (2,'2018-12-01','ferloop','fernando10','Lopez','Estrada','Fernando','1995-01-06','7151341455','nero-blues@hotmail.com','av.revolucion',81,'norte',61505,'zitacuaro','moctezuma','michoacan','México');
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `venta`
+--
+
+DROP TABLE IF EXISTS `venta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `venta` (
+  `folio_ven` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha_ven` date NOT NULL,
+  `total_ven` float(8,2) DEFAULT NULL,
+  `cve_usu` int(11) NOT NULL,
+  PRIMARY KEY (`folio_ven`),
+  KEY `cve_usu` (`cve_usu`),
+  CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`cve_usu`) REFERENCES `usuario` (`cve_usu`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `venta`
+--
+
+LOCK TABLES `venta` WRITE;
+/*!40000 ALTER TABLE `venta` DISABLE KEYS */;
+/*!40000 ALTER TABLE `venta` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-12-01 22:21:05
